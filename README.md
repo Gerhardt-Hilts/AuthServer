@@ -55,4 +55,4 @@ IdentityServer4 - used for OAuth
 * Dockerfiles
 * PWA
 * Unit Testing
-* Developer SSL certificate [link](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/)
+* Developer SSL certificate (*OpenSSL*) [link](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/)
