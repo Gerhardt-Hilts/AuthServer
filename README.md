@@ -57,3 +57,4 @@ IdentityServer4 - used for OAuth
 * Unit Testing
 * Developer SSL certificate (*OpenSSL*) [link](https://www.freecodecamp.org/news/how-to-get-https-working-on-your-local-development-environment-in-5-minutes-7af615770eec/)
 * Secrets in your app [link](https://medium.com/poka-techblog/the-best-way-to-store-secrets-in-your-app-is-not-to-store-secrets-in-your-app-308a6807d3ed)
+* Implment dispose pattern for the database connection in the `PostgresDatabase` class, *an unmanaged resource*. [link](https://docs.microsoft.com/en-us/dotnet/standard/garbage-collection/unmanaged)
