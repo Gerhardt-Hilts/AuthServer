@@ -26,7 +26,7 @@ namespace Auth.Controllers
             // respond if bad request
             if (!userAuthenticated)
                 return new Response<string>(Response<string>.ResponseStatus.ResponseStatusCode.BadRequest,
-                    "user could not be authenticated", "");
+                    "user could not be authenticated", null);
             // get user id
             var user = UserLogic.GetUserByUsername(username);
             // create access token with user id as subject
