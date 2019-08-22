@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Auth.Models;
 using JWT.Algorithms;
 using JWT.Builder;
 
 namespace Auth.Logic
 {
-    public class TokenLogic
+    public class AuthLogic
     {
-        public TokenLogic(string secret)
+        public AuthLogic(string secret)
         {
             _secret = secret;
         }
@@ -27,7 +28,23 @@ namespace Auth.Logic
             // var refreshToken
             return accessToken;
         }
+        
+        public bool AuthenticateUser(string username, string password)
+        {
+            return true;
+        }
 
+        public string GetUserIdByUsername(string username)
+        {
+            return "";
+        }
+
+        public InternalResponse<string> CreateUser(string username, string password)
+        {
+            var userId = "";
+            return new InternalResponse<string>(InternalStatusCode.Ok, "user successfully created", userId);
+        }
+        
         public void BlacklistToken()
         {
             // invalidates a token
