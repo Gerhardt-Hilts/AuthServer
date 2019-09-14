@@ -1,12 +1,12 @@
-namespace Auth.Models
+namespace Auth.Config
 {
-    public enum GrantType
+    public enum GrantTypes
     {
         AuthorizationCode,
         Implicit,
         Password,
         ClientCredentials,
         DeviceCode,
-        RefreshTokens
+        RefreshToken
     }
 }

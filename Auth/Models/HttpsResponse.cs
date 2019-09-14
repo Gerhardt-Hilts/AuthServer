@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Auth.Models
 {
-    public class Response<TDataType>
+    public class HttpsResponse<TDataType>
     {
         // Status Sub Class
         public class ResponseStatus
@@ -47,7 +47,7 @@ namespace Auth.Models
         public TDataType Data;
 
         // constructor
-        public Response(ResponseStatus.ResponseStatusCode code, string message, TDataType dataPayload)
+        public HttpsResponse(ResponseStatus.ResponseStatusCode code, string message, TDataType dataPayload)
         {
             Status = new ResponseStatus(code, message);
             Data = dataPayload;

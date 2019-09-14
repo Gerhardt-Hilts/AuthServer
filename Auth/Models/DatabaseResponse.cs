@@ -1,6 +1,6 @@
 namespace Auth.Models
 {
-    public class InternalResponse
+    public class DatabaseResponse
     {
         
     }

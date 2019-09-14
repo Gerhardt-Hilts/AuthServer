@@ -1,17 +1,35 @@
+using System;
+using System.Security.Cryptography;
 using Auth.Models;
 
 namespace Auth.Logic
 {
-    public static class UserLogic
+    public class UserLogic
     {
-        public static bool AuthenticateUser(string username, string password)
+        public UserLogic(UsersData userDatabaseInstance)
+        {
+            
+        }
+        
+        public bool CreateUser(string username, string password)
+        {
+            var guid = Guid.NewGuid().ToString();
+            return true;
+        }
+        
+        public bool AuthenticateUser(string username, string password)
         {
             return true;
         }
 
-        public static User GetUserByUsername(string username)
+        public bool GetUserByUsername(string username)
         {
-            return new User();
+            return true;
+        }
+
+        public bool GetUserByUserId(string userId)
+        {
+            return true;
         }
     }
 }
