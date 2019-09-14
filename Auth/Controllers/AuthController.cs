@@ -34,6 +34,16 @@ namespace Auth.Controllers
             // return access token in response
             return new Response<string>(Response<string>.ResponseStatus.ResponseStatusCode.Ok, "user was authenticated", accessToken);
         }
+
+        public Response<string> CreateUser(UserCredentials userCreateCredentials)
+        {
+            var username = userCreateCredentials.Username;
+            var password = userCreateCredentials.Password;
+            
+            
+            
+            return new Response<string>(Response<string>.ResponseStatus.ResponseStatusCode.Ok, "user created successfully", null);
+        }
         
         // GET auth/test
         // basic get method for testing

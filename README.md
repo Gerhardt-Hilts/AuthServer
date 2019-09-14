@@ -45,7 +45,7 @@ The service is labeled Auth.
 
 
 ## Dependencies
-IdentityServer4 - used for OAuth
+~~IdentityServer4 - used for OAuth~~
 
 
 ## TODO
