@@ -17,14 +17,14 @@ namespace Auth.Data
         {
             _connection.Open();
             return _connection.State == ConnectionState.Open 
-                ? new DatabaseResponse(InternalStatusCode.Ok, "success: connection opened")
-                : new DatabaseResponse(InternalStatusCode.Failed, "failed: could not open connection");
+                ? new DatabaseResponse(StatusCode.Ok, "success: connection opened")
+                : new DatabaseResponse(StatusCode.Failed, "failed: could not open connection");
         }
 
         public DatabaseResponse CloseConnection()
         {
             _connection.Close();
-            return new DatabaseResponse(InternalStatusCode.Ok, "connection closed");
+            return new DatabaseResponse(StatusCode.Ok, "connection closed");
         }
 
         public NpgsqlCommand CreateCommand(string command)

@@ -1,5 +1,6 @@
 using System;
 using System.Security.Cryptography;
+using Auth.Data;
 using Auth.Models;
 
 namespace Auth.Logic

@@ -35,6 +35,46 @@ namespace Auth.Controllers
             return new HttpsResponse<object>(HttpsResponse<object>.ResponseStatus.ResponseStatusCode.Ok, "user was authenticated", tokens);
         }
         
+        public void LogoutUser()
+        {
+            
+        }
+
+        public void CreateUser()
+        {
+            
+        }
+
+        public void AddClient()
+        {
+            
+        }
+
+        public void UpdateClient()
+        {
+            
+        }
+
+        public void RemoveClient()
+        {
+            
+        }
+
+        public void AddScope()
+        {
+            
+        }
+
+        public void UpdateScope()
+        {
+            
+        }
+
+        public void RemoveScope()
+        {
+            
+        }
+
         // GET auth/test
         // basic get method for testing
         [HttpGet("test")]
