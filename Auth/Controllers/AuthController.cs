@@ -40,40 +40,7 @@ namespace Auth.Controllers
             
         }
 
-        public void CreateUser()
-        {
-            
-        }
-
-        public void AddClient()
-        {
-            
-        }
-
-        public void UpdateClient()
-        {
-            
-        }
-
-        public void RemoveClient()
-        {
-            
-        }
-
-        public void AddScope()
-        {
-            
-        }
-
-        public void UpdateScope()
-        {
-            
-        }
-
-        public void RemoveScope()
-        {
-            
-        }
+}
 
         // GET auth/test
         // basic get method for testing
