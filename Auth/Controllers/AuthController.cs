@@ -6,6 +6,7 @@ using Auth.Logic;
 using Auth.Models;
 using Auth.Logic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Auth.Controllers
 {
@@ -14,6 +15,8 @@ namespace Auth.Controllers
     public class AuthController : ControllerBase
     {
         private readonly TokenLogic _tokenLogicLayer = new TokenLogic("secret");
+        
+        // user authentication methods are given their own specific method signature, rather than rolling them into the other grant-types
         
         // POST auth/login-user
         [HttpPost("login-user")]
@@ -39,8 +42,16 @@ namespace Auth.Controllers
         {
             
         }
+        
+        public void RefreshUser()
+        {
 
-}
+        }
+
+        public void Authentication(string grantType, string scope, string clientId, string clientSecret, string authorizationCode, )
+        {
+            
+        }
 
         // GET auth/test
         // basic get method for testing
