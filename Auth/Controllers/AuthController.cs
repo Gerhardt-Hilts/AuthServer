@@ -48,9 +48,25 @@ namespace Auth.Controllers
 
         }
 
-        public void Authentication(string grantType, string scope, string clientId, string clientSecret, string authorizationCode, )
+        public void Authentication(GrantType grantType, string scope, string clientId, string clientSecret, string authorizationCode)
         {
-            
+            switch (grantType)
+            {
+                case GrantType.AuthorizationCode:
+                    break;
+                case GrantType.Implicit:
+                    break;
+                case GrantType.Password:
+                    break;
+                case GrantType.ClientCredentials:
+                    break;
+                case GrantType.DeviceCode:
+                    break;
+                case GrantType.RefreshToken:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(grantType), grantType, null);
+            }
         }
 
         // GET auth/test
