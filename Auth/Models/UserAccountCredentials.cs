@@ -7,7 +7,7 @@ namespace Auth.Models
         public readonly string Password;
         public readonly string Salt;
 
-        public UserAccountCredentials(string userId ,string username, string password, string salt)
+        public UserAccountCredentials(string userId, string username, string password, string salt)
         {
             UserId = userId;
             Username = username;
