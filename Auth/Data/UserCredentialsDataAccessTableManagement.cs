@@ -3,22 +3,22 @@ using Auth.Models;
 
 namespace Auth.Data
 {
-    internal class UserCredentialsDataAccessTableManagement
+    public class UserCredentialsDataAccessTableManagement
     {
         private readonly PostgresDatabase _database;
         
-        internal UserCredentialsDataAccessTableManagement(PostgresDatabase database)
+        public UserCredentialsDataAccessTableManagement(PostgresDatabase database)
         {
             _database = database;
         }
         
-        internal InternalResponse InitializeTable()
+        public InternalResponse InitializeTable()
         {
             var cmd = _database.CreateCommand(UserCredentialsTableCommands.CreateTableCommand);
             return new InternalResponse(InternalStatusCode.Ok, "table initialized");
         }
 
-        internal InternalResponse ValidateTable()
+        public InternalResponse ValidateTable()
         {
             using (var validateTableExists = _database.CreateCommand(UserCredentialsTableCommands.ValidateTableExistsCommand))
             using (var reader = validateTableExists.ExecuteReader())

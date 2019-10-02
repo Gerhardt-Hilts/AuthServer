@@ -17,7 +17,7 @@ namespace Auth.Data
             _database = database;
         }
         
-        internal InternalResponse<string> CreateUser(string guid, string username, string password, string salt)
+        public InternalResponse<string> CreateUser(string guid, string username, string password, string salt)
         {
             using (var createUser = _database.CreateCommand(UserCredentialsDataCommands.CreateUserCommand))
             {
@@ -38,7 +38,7 @@ namespace Auth.Data
             return new InternalResponse<string>(InternalStatusCode.Ok, "successfully created user", guid);
         }
 
-        private InternalResponse<UserCredentials> GetUserByUserName()
+        public InternalResponse<UserCredentials> GetUserByUserName()
         {
             var userCredentials = new UserCredentials("","","","");
             return new InternalResponse<UserCredentials>(InternalStatusCode.Ok, "successfully fetched user", userCredentials);

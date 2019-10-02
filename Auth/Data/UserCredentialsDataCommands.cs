@@ -3,7 +3,7 @@ namespace Auth.Data
     public static class UserCredentialsDataCommands
     {
 
-        internal const string CreateUserCommand =
+        public const string CreateUserCommand =
             @"INSERT INTO user_credentials
                 (
                     guid,
@@ -20,7 +20,7 @@ namespace Auth.Data
                 )
             ";
 
-        private const string GetUserByUsername =
+        public const string GetUserByUsername =
             @"SELECT username, password, guid, salt FROM user_credentials
                 WHERE username = @username
             ";
