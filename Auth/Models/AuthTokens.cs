@@ -4,13 +4,13 @@ namespace Auth.Models
 {
     public class AuthTokens
     {
-        public string accessToken;
-        public string refreshToken;
+        public AccessToken AccessToken;
+        public RefreshToken RefreshToken;
 
-        public AuthTokens(string inputAccessToken, string inputRefreshToken)
+        public AuthTokens(AccessToken inputAccessToken, RefreshToken inputRefreshToken)
         {
-            accessToken = inputAccessToken;
-            refreshToken = inputRefreshToken;
+            AccessToken = inputAccessToken;
+            RefreshToken = inputRefreshToken;
         }
     }
 }
