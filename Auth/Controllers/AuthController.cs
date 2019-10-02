@@ -33,7 +33,7 @@ namespace Auth.Controllers
             // get user id
             var user = UserLogic.GetUserByUsername(username);
             // create access token with user id as subject
-            var tokens = _tokenLogicLayer.GenerateTokensForUser(user.UserId);
+            var tokens = _tokenLogicLayer.GenerateTokensForUser(user.Id);
             // return access token in response
             return new HttpsResponse<object>(HttpsResponse<object>.ResponseStatus.ResponseStatusCode.Ok, "user was authenticated", tokens);
         }
