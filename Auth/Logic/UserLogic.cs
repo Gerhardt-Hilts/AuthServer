@@ -7,7 +7,7 @@ namespace Auth.Logic
 {
     public class UserLogic
     {
-        public UserLogic(UsersData userDatabaseInstance)
+        public UserLogic(UsersCredentialsData userCredentialsDatabaseInstance)
         {
             
         }

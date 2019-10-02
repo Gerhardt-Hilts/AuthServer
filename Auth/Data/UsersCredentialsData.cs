@@ -1,6 +1,6 @@
 namespace Auth.Data
 {
-    public class UsersData
+    public class UsersCredentialsData
     {
         
     }

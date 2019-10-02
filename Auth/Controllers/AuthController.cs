@@ -20,10 +20,10 @@ namespace Auth.Controllers
         
         // POST auth/login-user
         [HttpPost("login-user")]
-        public HttpsResponse<object> LoginUser(UserAccountCredentials userAccountLoginCredentials)
+        public HttpsResponse<object> LoginUser(UserCredentials userAccountLogin)
         {
-            var username = userAccountLoginCredentials.Username;
-            var password = userAccountLoginCredentials.Password;
+            var username = userAccountLogin.Username;
+            var password = userAccountLogin.Password;
             // check for valid username and password
             var userAuthenticated = UserLogic.AuthenticateUser(username, password);
             // respond if bad request
