@@ -12,13 +12,13 @@ namespace Auth.Data
             _database = database;
         }
         
-        public InternalResponse InitializeTable()
+        public DatabaseResponse InitializeTable()
         {
             var cmd = _database.CreateCommand(UserCredentialsTableCommands.CreateTableCommand);
-            return new InternalResponse(InternalStatusCode.Ok, "table initialized");
+            return new DatabaseResponse(StatusCode.Ok, "table initialized");
         }
 
-        public InternalResponse ValidateTable()
+        public DatabaseResponse ValidateTable()
         {
             using (var validateTableExists = _database.CreateCommand(UserCredentialsTableCommands.ValidateTableExistsCommand))
             using (var reader = validateTableExists.ExecuteReader())
@@ -33,7 +33,7 @@ namespace Auth.Data
                 while (reader.Read())
                     Console.WriteLine(reader.GetString(0));
             
-            return new InternalResponse(InternalStatusCode.Ok, "table validated successfully");
+            return new DatabaseResponse(StatusCode.Ok, "table validated successfully");
         }
 
     }

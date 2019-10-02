@@ -29,7 +29,7 @@ namespace Auth.Logic
             // check if table exists
             var tableValidation = userCredentialsDataAccessTableManagement.ValidateTable();
             // if not create table
-            if (tableValidation.Code != InternalStatusCode.Ok)
+            if (tableValidation.Code != StatusCode.Ok)
                 userCredentialsDataAccessTableManagement.InitializeTable();
         }
 
@@ -58,7 +58,7 @@ namespace Auth.Logic
             return "";
         }
 
-        public InternalResponse<string> CreateUser(string username, string password)
+        public DatabaseResponse<string> CreateUser(string username, string password)
         {
             var saltBytes = CreateSalt();
             var hashedPassword = HashPassword(password, saltBytes);
@@ -67,7 +67,7 @@ namespace Auth.Logic
             var salt = saltBytes.ToString();
             _userCredentialsDataAccessDataManagement.CreateUser(guid, username, password, salt);
             
-            return new InternalResponse<string>(InternalStatusCode.Ok, "user successfully created", guid);
+            return new DatabaseResponse<string>(StatusCode.Ok, "user successfully created", guid);
         }
         
         public void BlacklistToken()
