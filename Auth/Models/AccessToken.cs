@@ -2,6 +2,7 @@ namespace Auth.Models
 {
     public class AccessToken
     {
+        public string Id;
         public string LiteralToken;
         public long IssuedAt;
         public long ExpiresAt;
