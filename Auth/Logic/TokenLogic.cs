@@ -15,25 +15,24 @@ namespace Auth.Logic
 
         private readonly string _secret;
 
-        public AuthTokens GenerateTokensForUser(string userId)
+        public AuthTokens GenerateTokensForUser(string userId, string scopeId, string clientId)
         {
-            // create an ids for the tokens
-            var accessTokenId = Guid.NewGuid().ToString();
-            var refreshTokenId = Guid.NewGuid().ToString();
+            // set times for tokens
             
             // create the tokens
-            var accessToken = CreateAccessToken(userId, accessTokenId);
-            var refreshToken = CreateRefreshToken();
+            var accessToken = CreateAccessToken(userId, scopeId, clientId, issuedAt, accessTokenExpiresAt);
+            var refreshToken = CreateRefreshToken(userId, scopeId, clientId, issuedAt, refreshTokenExpiresAt);
             
             // record the tokens
-            RecordAccessToken(accessTokenId, userId, accessToken);
-            RecordRefreshToken(refreshTokenId, userId, refreshToken);
+            RecordAccessToken(accessToken);
+            RecordRefreshToken(refreshToken);
             return new AuthTokens(accessToken, refreshToken);
         }
 
-        public string CreateAccessToken(string userId, string tokenId)
+        public AccessToken CreateAccessToken(string userId, string scopeId, string clientId, long issuedAt, long expiresAt)
         {
-            return new JwtBuilder()
+            var tokenId = Guid.NewGuid();
+            var literalToken = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm())
                 .WithSecret(_secret)
                 .AddClaim("iat", DateTimeOffset.UtcNow)
@@ -43,9 +42,9 @@ namespace Auth.Logic
                 .Build();
         }
 
-        public string CreateRefreshToken()
+        public RefreshToken CreateRefreshToken()
         {
-            return Crypto.GetUniqueKey(32);
+            var literalToken = Crypto.GetUniqueKey(32);
         }
 
         public void RecordAccessToken(string accessTokenId, string userId, string accessToken)
