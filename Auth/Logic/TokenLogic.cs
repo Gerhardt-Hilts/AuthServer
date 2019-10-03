@@ -11,14 +11,22 @@ namespace Auth.Logic
         public TokenLogic(string secret)
         {
             _secret = secret;
+            _accessTokenDurationValid = Time.HoursToMilliseconds(2);
+            _refreshTokenDurationValid = Time.DaysToMilliseconds(2);
         }
 
         private readonly string _secret;
+        private readonly long _accessTokenDurationValid;
+        private readonly long _refreshTokenDurationValid;
 
         public AuthTokens GenerateTokensForUser(string userId, string scopeId, string clientId)
         {
             // set times for tokens
-            
+            var now = Time.CurrentTime();
+            var issuedAt = now;
+            var accessTokenExpiresAt = now + _accessTokenDurationValid;
+            var refreshTokenExpiresAt = now + _refreshTokenDurationValid;
+
             // create the tokens
             var accessToken = CreateAccessToken(userId, scopeId, clientId, issuedAt, accessTokenExpiresAt);
             var refreshToken = CreateRefreshToken(userId, scopeId, clientId, issuedAt, refreshTokenExpiresAt);
@@ -35,16 +43,22 @@ namespace Auth.Logic
             var literalToken = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm())
                 .WithSecret(_secret)
-                .AddClaim("iat", DateTimeOffset.UtcNow)
-                .AddClaim("exp", DateTimeOffset.UtcNow.AddMinutes(30).ToUnixTimeSeconds())
-                .AddClaim("sub", userId)
                 .AddClaim("jti", tokenId)
+                .AddClaim("iat", issuedAt)
+                .AddClaim("exp", expiresAt)
+                .AddClaim("user", userId)
+                .AddClaim("scope", scopeId)
+                .AddClaim("client", clientId)
                 .Build();
+            
+            return new AccessToken();
         }
 
-        public RefreshToken CreateRefreshToken()
+        public RefreshToken CreateRefreshToken(string userId, string scopeId, string clientId, long issuedAt, long expiresAt)
         {
+            var tokenId = Guid.NewGuid();
             var literalToken = Crypto.GetUniqueKey(32);
+            return new RefreshToken();
         }
 
         public void RecordAccessToken(string accessTokenId, string userId, string accessToken)
