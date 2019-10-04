@@ -11,7 +11,7 @@ namespace Auth.Logic
     public class AuthLogic
     {
         private readonly string _secret;
-        private readonly UserCredentialsDataAccessDataManagement _userCredentialsDataAccessDataManagement;
+        private readonly UserLogic _userLogic;
         private readonly TokenLogic _tokenLogic;
         
         public AuthLogic(string secret)
@@ -25,7 +25,8 @@ namespace Auth.Logic
                     "test"));
             
             var userCredentialsDataAccessTableManagement = new UserCredentialsDataAccessTableManagement(database);
-            _userCredentialsDataAccessDataManagement = new UserCredentialsDataAccessDataManagement(database);
+            var userCredentialsDataInstance = new UsersCredentialsData(database);
+            _userLogic = new UserLogic(userCredentialsDataInstance);
             _tokenLogic = new TokenLogic();
             
             // check if table exists
@@ -35,25 +36,35 @@ namespace Auth.Logic
                 userCredentialsDataAccessTableManagement.InitializeTable();
         }
 
-        public AuthTokens LoginUser()
+        public AuthTokens LoginUser(string username, string password, string clientId)
         {
             // authenticate user
-            // invalidate other user sessions
-            //     invalidate other auth tokens if any
+            var valid = _userLogic.AuthenticateUser(username, password);
+            if (!valid)
+                return null;
+            
+            // get user from database to view userId, scopeId
+            var user = _userLogic.GetUserByUsername(username);
+            
             // give user new tokens
-
-            return _tokenLogic.GenerateTokens(authRequest.UserId, authRequest.ScopeId, authRequest.ClientId);
+            return _tokenLogic.GenerateTokens(user.Id, user.ScopeId, clientId);
         }
 
         public AuthTokens RefreshUser(RefreshToken refreshToken)
         {
             var valid = _tokenLogic.ValidateRefreshToken(refreshToken);
-            return valid ? _tokenLogic.GenerateTokensForRefreshToken(refreshToken) : null;
+            if (valid)
+            {
+                _tokenLogic.RevokeRefreshToken(refreshToken);
+                return _tokenLogic.GenerateTokensForRefreshToken(refreshToken);
+            }
+
+            return null;
         }
 
-        public bool LogoutUser()
+        public bool LogoutUser(RefreshToken refreshToken)
         {
-            
+            _tokenLogic.RevokeRefreshToken(refreshToken);
         }
 
         public bool DeactivateUser()

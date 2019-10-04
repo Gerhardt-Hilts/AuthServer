@@ -20,7 +20,7 @@ namespace Auth.Controllers
         
         // POST auth/login-user
         [HttpPost("login-user")]
-        public HttpsResponse<object> LoginUser(UserCredentials userAccountLogin)
+        public HttpsResponse<object> LoginUser(User userAccountLogin)
         {
             var username = userAccountLogin.Username;
             var password = userAccountLogin.Password;

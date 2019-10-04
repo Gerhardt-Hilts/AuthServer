@@ -1,18 +1,20 @@
 namespace Auth.Models
 {
-    public class UserCredentials
+    public class User
     {
         public readonly string Id;
         public readonly string Username;
         public readonly string Password;
-        public readonly string Salt;
+        public readonly byte[] Salt;
+        public readonly string ScopeId;
 
-        public UserCredentials(string userId, string username, string password, string salt)
+        public User(string userId, string username, string password, byte[] salt, string scopeId)
         {
             Id = userId;
             Username = username;
             Password = password;
             Salt = salt;
+            ScopeId = ScopeId;
         }
     }
 }

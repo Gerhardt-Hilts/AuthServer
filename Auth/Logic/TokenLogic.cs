@@ -120,7 +120,7 @@ namespace Auth.Logic
         //     //     this server
         // }
 
-        public void RevokeRefreshToken()
+        public void RevokeRefreshToken(RefreshToken refreshToken)
         {
             
         }

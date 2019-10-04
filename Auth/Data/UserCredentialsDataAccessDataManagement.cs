@@ -38,10 +38,10 @@ namespace Auth.Data
             return new DatabaseResponse<string>(StatusCode.Ok, "successfully created user", guid);
         }
 
-        public DatabaseResponse<UserCredentials> GetUserByUserName()
+        public DatabaseResponse<User> GetUserByUserName()
         {
-            var userCredentials = new UserCredentials("","","","");
-            return new DatabaseResponse<UserCredentials>(StatusCode.Ok, "successfully fetched user", userCredentials);
+            var userCredentials = new User("","","","");
+            return new DatabaseResponse<User>(StatusCode.Ok, "successfully fetched user", userCredentials);
         }
 
     }
