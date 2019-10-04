@@ -18,9 +18,15 @@ namespace Auth.Logic
         private readonly string _secret;
         private readonly long _accessTokenDurationValid;
         private readonly long _refreshTokenDurationValid;
+
+        public TokenLogic()
+        {
+            throw new NotImplementedException();
+        }
+
         private const int RefreshTokenLength = 32;
 
-        public AuthTokens GenerateTokensForUserLogin(string userId, string scopeId, string clientId)
+        public AuthTokens GenerateTokens(string userId, string scopeId, string clientId)
         {
             // set times for tokens
             var now = Time.CurrentTime();
