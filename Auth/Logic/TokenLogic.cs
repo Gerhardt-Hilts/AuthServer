@@ -18,6 +18,7 @@ namespace Auth.Logic
         private readonly string _secret;
         private readonly long _accessTokenDurationValid;
         private readonly long _refreshTokenDurationValid;
+        private const int RefreshTokenLength = 32;
 
         public AuthTokens GenerateTokensForUser(string userId, string scopeId, string clientId)
         {
@@ -37,9 +38,11 @@ namespace Auth.Logic
             return new AuthTokens(accessToken, refreshToken);
         }
 
+        // These two methods `CreateAccessToken` and `CreateRefreshToken` may seem redundant with the constructor now,
+        //     but will allow for different types of tokens later; JWT, Bearer, 
         public AccessToken CreateAccessToken(string userId, string scopeId, string clientId, long issuedAt, long expiresAt)
         {
-            var tokenId = Guid.NewGuid();
+            var tokenId = Guid.NewGuid().ToString();
             var literalToken = new JwtBuilder()
                 .WithAlgorithm(new HMACSHA256Algorithm())
                 .WithSecret(_secret)
@@ -51,22 +54,23 @@ namespace Auth.Logic
                 .AddClaim("client", clientId)
                 .Build();
             
-            return new AccessToken();
+            return new AccessToken(tokenId, literalToken, userId, clientId, scopeId, issuedAt, expiresAt);
         }
 
         public RefreshToken CreateRefreshToken(string userId, string scopeId, string clientId, long issuedAt, long expiresAt)
         {
-            var tokenId = Guid.NewGuid();
-            var literalToken = Crypto.GetUniqueKey(32);
-            return new RefreshToken();
+            var tokenId = Guid.NewGuid().ToString();
+            var literalToken = Crypto.GetUniqueKey(RefreshTokenLength);
+            
+            return new RefreshToken(tokenId, literalToken, userId, clientId, scopeId, issuedAt, expiresAt);
         }
 
-        public void RecordAccessToken(string accessTokenId, string userId, string accessToken)
+        public void RecordAccessToken(AccessToken accessToken)
         {
             
         }
 
-        public void RecordRefreshToken(string refreshTokenId, string userId, string refreshToken)
+        public void RecordRefreshToken(RefreshToken refreshToken)
         {
             
         }
