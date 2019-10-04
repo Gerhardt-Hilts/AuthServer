@@ -35,7 +35,7 @@ namespace Auth.Logic
                 userCredentialsDataAccessTableManagement.InitializeTable();
         }
 
-        public AuthTokens LoginUser(AuthRequest authRequest)
+        public AuthTokens LoginUser()
         {
             // authenticate user
             // invalidate other user sessions
@@ -43,6 +43,22 @@ namespace Auth.Logic
             // give user new tokens
 
             return _tokenLogic.GenerateTokens(authRequest.UserId, authRequest.ScopeId, authRequest.ClientId);
+        }
+
+        public AuthTokens RefreshUser(RefreshToken refreshToken)
+        {
+            var valid = _tokenLogic.ValidateRefreshToken(refreshToken);
+            return valid ? _tokenLogic.GenerateTokensForRefreshToken(refreshToken) : null;
+        }
+
+        public bool LogoutUser()
+        {
+            
+        }
+
+        public bool DeactivateUser()
+        {
+            
         }
     }
 }
