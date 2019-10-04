@@ -20,7 +20,7 @@ namespace Auth.Logic
         private readonly long _refreshTokenDurationValid;
         private const int RefreshTokenLength = 32;
 
-        public AuthTokens GenerateTokensForUser(string userId, string scopeId, string clientId)
+        public AuthTokens GenerateTokensForUserLogin(string userId, string scopeId, string clientId)
         {
             // set times for tokens
             var now = Time.CurrentTime();
@@ -38,8 +38,18 @@ namespace Auth.Logic
             return new AuthTokens(accessToken, refreshToken);
         }
 
+        public AuthTokens GenerateTokensForRefreshToken()
+        {
+            // 
+        }
+
         // These two methods `CreateAccessToken` and `CreateRefreshToken` may seem redundant with the constructor now,
-        //     but will allow for different types of tokens later; JWT, Bearer, 
+        //     but will allow for different types of tokens later; JWT, Bearer. I believe all token related procedures,
+        //     should originate from this class, and logical operations that occur on the tokens themselves should not
+        //     be kept within the classes themselves
+        // To put this simply, the classes for an object, and the operations on that object should be kept separate.
+        //     This helps prevent entropic state changes from causing an operation to fail, and helps prevent bugs when
+        //     making additions to the codebase.
         public AccessToken CreateAccessToken(string userId, string scopeId, string clientId, long issuedAt, long expiresAt)
         {
             var tokenId = Guid.NewGuid().ToString();
@@ -75,6 +85,7 @@ namespace Auth.Logic
             
         }
 
+        // Blacklist tokens
         // public void RevokeAccessToken()
         // {
         //     // invalidates a token
@@ -92,6 +103,24 @@ namespace Auth.Logic
         {
             
         }
-        
+
+        public bool ValidateAccessToken(AccessToken accessToken)
+        {
+            // Use Jwt library to create new signature and compare it against newly signed claims
+            // return bool determining validity
+            return false;
+        }
+
+        public bool ValidateRefreshToken(RefreshToken refreshToken)
+        {
+            // Confirm it has not been blacklisted
+            // Confirm it has not been invalidated
+            // Confirm it is still within the valid use time
+            // return bool determining validity
+            
+            // Think of invalidating a token as a graceful way of terminating a tokens lifespan, while blacklisting is a
+            //     way of listing the token as suspicious
+            return false;
+        }
     }
 }
