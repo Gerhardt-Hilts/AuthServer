@@ -35,12 +35,27 @@ namespace Auth.Logic
             // record the tokens
             RecordAccessToken(accessToken);
             RecordRefreshToken(refreshToken);
+            
             return new AuthTokens(accessToken, refreshToken);
         }
 
-        public AuthTokens GenerateTokensForRefreshToken()
+        public AuthTokens GenerateTokensForRefreshToken(RefreshToken refreshToken)
         {
-            // 
+            // set time for access token
+            var now = Time.CurrentTime();
+            var issuedAt = now;
+            var accessTokenExpiresAt = now + _accessTokenDurationValid;
+            
+            // renew the tokens
+            var accessToken = CreateAccessToken(refreshToken.UserId, refreshToken.ScopeId, refreshToken.ClientId, issuedAt,
+                accessTokenExpiresAt);
+            var renewedRefreshToken = CreateRefreshToken(refreshToken.UserId, refreshToken.ScopeId, refreshToken.ClientId, issuedAt, refreshToken.ExpiresAt);
+            
+            // record the tokens
+            RecordAccessToken(accessToken);
+            RecordRefreshToken(refreshToken);
+            
+            return new AuthTokens(accessToken, renewedRefreshToken);
         }
 
         // These two methods `CreateAccessToken` and `CreateRefreshToken` may seem redundant with the constructor now,
