@@ -41,5 +41,10 @@ namespace Auth.Logic
         {
             return true;
         }
+
+        public void DeactivateUser(string userId)
+        {
+            var user = _userDatabaseInstance.DeactivateUser(userId)
+        }
     }
 }
