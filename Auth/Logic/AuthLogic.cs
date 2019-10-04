@@ -36,6 +36,11 @@ namespace Auth.Logic
                 userCredentialsDataAccessTableManagement.InitializeTable();
         }
 
+        public void CreateUser(string username, string password)
+        {
+            
+        }
+
         public AuthTokens LoginUser(string username, string password, string clientId)
         {
             // authenticate user
@@ -69,7 +74,7 @@ namespace Auth.Logic
             _tokenLogic.RevokeRefreshToken(refreshToken);
         }
 
-        public bool DeactivateUser(string userId)
+        public void DeactivateUser(string userId)
         {
             _userLogic.DeactivateUser(userId);
         }
