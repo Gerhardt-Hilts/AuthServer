@@ -12,6 +12,7 @@ namespace Auth.Logic
     {
         private readonly string _secret;
         private readonly UserCredentialsDataAccessDataManagement _userCredentialsDataAccessDataManagement;
+        private readonly TokenLogic _tokenLogic;
         
         public AuthLogic(string secret)
         {
@@ -25,6 +26,7 @@ namespace Auth.Logic
             
             var userCredentialsDataAccessTableManagement = new UserCredentialsDataAccessTableManagement(database);
             _userCredentialsDataAccessDataManagement = new UserCredentialsDataAccessDataManagement(database);
+            _tokenLogic = new TokenLogic();
             
             // check if table exists
             var tableValidation = userCredentialsDataAccessTableManagement.ValidateTable();
@@ -33,5 +35,14 @@ namespace Auth.Logic
                 userCredentialsDataAccessTableManagement.InitializeTable();
         }
 
+        public AuthTokens LoginUser(AuthRequest authRequest)
+        {
+            // authenticate user
+            // invalidate other user sessions
+            //     invalidate other auth tokens if any
+            // give user new tokens
+
+            return _tokenLogic.GenerateTokens(authRequest.UserId, authRequest.ScopeId, authRequest.ClientId);
+        }
     }
 }
