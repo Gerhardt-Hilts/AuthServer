@@ -62,14 +62,16 @@ namespace Auth.Logic
             return null;
         }
 
-        public bool LogoutUser(RefreshToken refreshToken)
+        public void LogoutUser(RefreshToken refreshToken)
         {
+            // end user session
+            // invalidate user session token
             _tokenLogic.RevokeRefreshToken(refreshToken);
         }
 
-        public bool DeactivateUser()
+        public bool DeactivateUser(string userId)
         {
-            
+            _userLogic.DeactivateUser(userId);
         }
     }
 }
